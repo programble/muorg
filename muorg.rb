@@ -46,13 +46,17 @@ puts "\rSearching directories: #{source_files.length} files"
 dest_paths = {}
 utf16 = Iconv.new('UTF-8', 'UTF-16')
 
-print 'Reading ID3 tags:   0%'
-
 source_files.each do |source_file|
   begin
     tags = TagLib2::File.new(source_file)
-  rescue TagLib2::BadFile
-    next # File has no tags
+  rescue TagLib2::BadFile # File has no tags
+    # HACK: Removing items from the list you are iterating over and using `next`
+    # causes an item to be skipped. This makes sure not to skip anything.
+    puts "\rWarning: '#{source_file}' is not tagged"
+    i = source_files.index(source_file)
+    source_files.delete(source_file)
+    source_file = source_files[i]
+    retry
   end
   
   path = dest_dir
@@ -63,7 +67,7 @@ source_files.each do |source_file|
   
   print format("\rReading ID3 tags: %3d%", dest_paths.length.to_f / source_files.length * 100)
 end
-puts "\rReading ID3 tags: 100%"
+puts
 
 #dest_paths.each do |source, dest|
 #  puts "#{source} -> #{dest}"
