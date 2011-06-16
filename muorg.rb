@@ -23,6 +23,11 @@ source_files = []
 print 'Searching directories: 0 files'
 
 source_dirs.each do |source_dir|
+  if File.file? source_dir
+    source_files << source_dir
+    next
+  end
+  
   Dir.foreach(source_dir) do |file|
     next if file[0] == '.' # Hey cool, ignore '.', '..', and hidden files!
     file = File.join(source_dir, file)
