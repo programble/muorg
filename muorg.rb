@@ -40,6 +40,11 @@ source_dirs.each do |source_dir|
 end
 puts "\rSearching directories: #{source_files.length} files"
 
+if source_files == []
+  puts "Error: No music files found"
+  exit 1
+end
+
 # Sort files
 dest_paths = {}
 
