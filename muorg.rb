@@ -47,13 +47,9 @@ source_files.each do |source_file|
   begin
     tags = TagLib2::File.new(source_file)
   rescue TagLib2::BadFile # File has no tags
-    # HACK: Removing items from the list you are iterating over and using `next`
-    # causes an item to be skipped. This makes sure not to skip anything.
     puts "\rWarning: '#{source_file}' is not tagged"
-    i = source_files.index(source_file)
-    source_files.delete(source_file)
-    source_file = source_files[i]
-    retry
+    dest_paths[source_file] = File.join(dest_dir, File.basename(source_file))
+    next
   end
   
   path = dest_dir
