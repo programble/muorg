@@ -1,6 +1,6 @@
 # Muorg
 
-Organize music files into folders by ID3 tags
+Organize music files into folders by tags
 
 ## Dependencies
 
