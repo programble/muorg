@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-#require 'id3lib'
 require 'taglib2'
 require 'fileutils'
 require 'iconv'
@@ -48,9 +47,7 @@ source_files.each do |source_file|
   begin
     tags = TagLib2::File.new(source_file)
   rescue TagLib2::BadFile
-    # File has no tags
-    source_files.delete(source_file)
-    next
+    next # File has no tags
   end
   
   path = dest_dir
@@ -61,7 +58,7 @@ source_files.each do |source_file|
   
   print format("\rReading ID3 tags: %3d%", dest_paths.length.to_f / source_files.length * 100)
 end
-puts
+puts "\rReading ID3 tags: 100%"
 
 #dest_paths.each do |source, dest|
 #  puts "#{source} -> #{dest}"
