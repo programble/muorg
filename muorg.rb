@@ -14,8 +14,8 @@ elsif ARGV.length < 2
   exit 1
 end
 
-dest_dir = ARGV[0]
-source_dirs = ARGV[1..-1]
+dest_dir = File.expand_path(ARGV[0])
+source_dirs = ARGV[1..-1].map {|x| File.expand_path(x)}
 
 # Find all source files
 source_files = []
