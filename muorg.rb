@@ -42,7 +42,6 @@ puts "\rSearching directories: #{source_files.length} files"
 
 # Sort files
 dest_paths = {}
-utf16 = Iconv.new('UTF-8', 'UTF-16')
 
 source_files.each do |source_file|
   begin
