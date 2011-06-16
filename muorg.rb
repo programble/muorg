@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'id3lib'
+#require 'id3lib'
+require 'taglib2'
 require 'fileutils'
 require 'iconv'
 
@@ -44,11 +45,13 @@ utf16 = Iconv.new('UTF-8', 'UTF-16')
 print 'Reading ID3 tags:   0%'
 
 source_files.each do |source_file|
-  tags = ID3Lib::Tag.new(source_file)
-    
-  # HACK: I hate encodings
-  tags.artist = utf16.iconv(tags.artist) if tags.artist && tags.artist.start_with?("\xFF\xFE")
-  tags.album = utf16.iconv(tags.album) if tags.album && tags.album.start_with?("\xFF\xFE")
+  begin
+    tags = TagLib2::File.new(source_file)
+  rescue TagLib2::BadFile
+    # File has no tags
+    source_files.delete(source_file)
+    next
+  end
   
   path = dest_dir
   path = File.join(path, tags.artist) if tags.artist
@@ -60,4 +63,6 @@ source_files.each do |source_file|
 end
 puts
 
-
+#dest_paths.each do |source, dest|
+#  puts "#{source} -> #{dest}"
+#end

@@ -4,8 +4,8 @@ Organize music files into folders by ID3 tags
 
 ## Dependencies
 
- * id3lib
- * id3lib-ruby (`gem install id3lib-ruby`)
+ * taglib
+ * `gem install ruby-taglib2`
 
 ## License
 
