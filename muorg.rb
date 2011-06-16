@@ -20,8 +20,6 @@ source_dirs = ARGV[1..-1].map {|x| File.expand_path(x)}
 # Find all source files
 source_files = []
 
-print 'Searching directories: 0 files'
-
 source_dirs.each do |source_dir|
   if File.file? source_dir
     source_files << source_dir
@@ -65,7 +63,7 @@ source_files.each do |source_file|
   path = File.join(path, File.basename(source_file))
   dest_paths[source_file] = path
   
-  print format("\rReading ID3 tags: %3d%", dest_paths.length.to_f / source_files.length * 100)
+  print format("\rReading tags: %3d%", dest_paths.length.to_f / source_files.length * 100)
 end
 puts
 
