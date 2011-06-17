@@ -58,8 +58,8 @@ source_files.each do |source_file|
   end
   
   path = dest_dir
-  path = File.join(path, tags.artist) if tags.artist
-  path = File.join(path, tags.album) if tags.album
+  path = File.join(path, tags.artist.encode("utf-8")) if tags.artist
+  path = File.join(path, tags.album.encode("utf-8")) if tags.album
   path = File.join(path, File.basename(source_file))
   dest_paths[source_file] = path
   
