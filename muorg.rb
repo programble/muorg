@@ -57,11 +57,16 @@ source_files.each do |source_file|
     next
   end
   
-  path = dest_dir
-  path = File.join(path, tags.artist.encode("utf-8")) if tags.artist
-  path = File.join(path, tags.album.encode("utf-8")) if tags.album
-  path = File.join(path, File.basename(source_file))
-  dest_paths[source_file] = path
+  begin
+    path = dest_dir
+    path = File.join(path, tags.artist) if tags.artist
+    path = File.join(path, tags.album) if tags.album
+    path = File.join(path, File.basename(source_file))
+    dest_paths[source_file] = path
+  rescue
+    puts "Error: #{source_file}"
+    puts $!
+  end
   
   print format("\rReading tags: %3d%", dest_paths.length.to_f / source_files.length * 100)
 end
