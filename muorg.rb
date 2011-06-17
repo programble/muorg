@@ -64,7 +64,7 @@ source_files.each do |source_file|
     path = File.join(path, File.basename(source_file))
     dest_paths[source_file] = path
   rescue
-    puts "Error: #{source_file}"
+    puts "\rError: #{source_file}"
     puts $!
   end
   
