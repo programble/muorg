@@ -2,7 +2,6 @@
 
 require 'taglib2'
 require 'fileutils'
-require 'iconv'
 
 MUSIC_EXTENSIONS = ['.mp3', '.ogg', '.wma', '.m4a', '.flac']
 
