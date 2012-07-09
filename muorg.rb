@@ -60,7 +60,11 @@ source_files.each do |source_file|
     path = dest_dir
     path = File.join(path, tags.artist) if tags.artist
     path = File.join(path, tags.album) if tags.album
-    path = File.join(path, File.basename(source_file))
+    if tags.track
+      path = File.join(path, "#{tags.track.to_s.rjust(2, '0')}. #{tags.title.gsub('/', '_')}#{File.extname(source_file)}")
+    else
+      path = File.join(path, "#{tags.title.gsub('/', '_')}#{File.extname(source_file)}")
+    end
     dest_paths[source_file] = path
   rescue
     puts "\rError: #{source_file}"
