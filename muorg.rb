@@ -80,7 +80,7 @@ moved_files = 0
 
 dest_paths.each do |source, dest|
   FileUtils.mkdir_p(File.dirname(dest))
-  FileUtils.ln_s(source, dest)
+  FileUtils.mv(source, dest) unless File.identical?(source, dest)
   moved_files += 1
   print format("\rCreating links: %3d%", moved_files.to_f / dest_paths.length * 100)
 end
